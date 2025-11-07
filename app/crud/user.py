@@ -55,7 +55,7 @@ def get_current_user(db: Session, token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
-        role: str = payload.get("role")  # Добавлено
+        role: str = payload.get("role")
         if email is None or role is None:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
         user = get_user_by_email(db, email)
@@ -64,3 +64,28 @@ def get_current_user(db: Session, token: str):
         return user
     except JWTError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
+# Новые для админа
+def get_all_users(db: Session):
+    return db.query(User).all()
+
+def get_user_by_id(db: Session, user_id: int):
+    return db.query(User).filter(User.id == user_id).first()
+
+def update_user(db: Session, user_id: int, user_update: dict):
+    db_user = get_user_by_id(db, user_id)
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    for key, value in user_update.items():
+        if value is not None:
+            setattr(db_user, key, value)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+def delete_user(db: Session, user_id: int):
+    db_user = get_user_by_id(db, user_id)
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(db_user)
+    db.commit()

@@ -72,6 +72,10 @@ def get_current_hotel_manager(current_user: User = Depends(get_current_user_from
     return current_user
 
 # ... (Аналогично добавьте для других ролей, если нужно: CONTENT_MODERATOR, etc.)
+def get_current_content_moderator(current_user: User = Depends(get_current_user_from_cookie)):
+    if current_user.role != UserRole.CONTENT_MODERATOR:
+        raise HTTPException(status_code=403, detail="Insufficient permissions: Content Moderator required")
+    return current_user
 
 @router.get("/me", response_model=UserOut)
 def read_users_me(current_user: User = Depends(get_current_user_from_cookie)):
