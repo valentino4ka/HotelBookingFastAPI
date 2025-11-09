@@ -16,28 +16,27 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.email == user.email).first()
     if db_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
+        raise HTTPException(status_code=400, detail="Email уже зарегистрирован")
     created_user = create_user(db, user.dict())
     return created_user
 
 @router.post("/login", response_model=Token)
 def login_for_access_token(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = authenticate_user(db, form_data.username, form_data.password)  # Здесь username - это email
+    user = authenticate_user(db, form_data.username, form_data.password)  # username = email
     if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect email or password")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверный email или пароль")
     access_token_expires = timedelta(minutes=30)
     access_token = create_access_token(
-        data={"sub": user.email, "role": user.role.value},  # Добавлена роль в токен
+        data={"sub": user.email, "role": user.role.value},
         expires_delta=access_token_expires
     )
-    # Установка куки: HTTP-Only, Secure (в продакшене), SameSite=Strict
     response.set_cookie(
         key="access_token",
         value=f"Bearer {access_token}",
         httponly=True,
-        max_age=1800,  # 30 минут
+        max_age=1800,
         expires=1800,
-        secure=False,  # В dev - False, в prod - True
+        secure=False,  # В dev - False
         samesite="strict"
     )
     return {"access_token": access_token, "token_type": "bearer"}
@@ -51,7 +50,7 @@ def logout(response: Response):
 def get_token_from_cookie(request: Request):
     token = request.cookies.get("access_token")
     if not token:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Не аутентифицирован")
     if token.startswith("Bearer "):
         token = token.split("Bearer ")[1]
     return token
@@ -63,18 +62,18 @@ def get_current_user_from_cookie(db: Session = Depends(get_db), token: str = Dep
 # Зависимости для проверки ролей
 def get_current_admin(current_user: User = Depends(get_current_user_from_cookie)):
     if current_user.role != UserRole.ADMIN:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Insufficient permissions: Admin required")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав: только администратор")
     return current_user
 
 def get_current_hotel_manager(current_user: User = Depends(get_current_user_from_cookie)):
     if current_user.role != UserRole.HOTEL_MANAGER:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Insufficient permissions: Hotel Manager required")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав: требуется менеджер отеля")
     return current_user
 
 # ... (Аналогично добавьте для других ролей, если нужно: CONTENT_MODERATOR, etc.)
 def get_current_content_moderator(current_user: User = Depends(get_current_user_from_cookie)):
     if current_user.role != UserRole.CONTENT_MODERATOR:
-        raise HTTPException(status_code=403, detail="Insufficient permissions: Content Moderator required")
+        raise HTTPException(status_code=403, detail="Недостаточно прав: требуется модератор контента")
     return current_user
 
 @router.get("/me", response_model=UserOut)
@@ -86,3 +85,4 @@ def read_users_me(current_user: User = Depends(get_current_user_from_cookie)):
 def get_all_users(db: Session = Depends(get_db), current_admin: User = Depends(get_current_admin)):
     users = db.query(User).all()
     return users
+

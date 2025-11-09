@@ -10,8 +10,13 @@ class UserBase(BaseModel):
     phone: Optional[str] = None
     role: UserRole = UserRole.USER
 
-class UserCreate(UserBase):
+class UserCreate(BaseModel):
+    first_name: str
+    last_name: str
+    email: EmailStr
     password: str
+    phone: Optional[str] = None
+
 
 class UserUpdate(BaseModel):  # Новый для обновления
     email: Optional[EmailStr] = None

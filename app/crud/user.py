@@ -17,13 +17,17 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 def create_user(db: Session, user_create: dict):
+    """
+    Создаёт пользователя. username устанавливается равным email.
+    first_name и last_name обязательны, phone опционален.
+    """
     hashed_password = hash_password(user_create["password"])
     db_user = User(
         email=user_create["email"],
-        username=user_create["username"],
+        username=user_create["email"],  # username = email для простоты
         hashed_password=hashed_password,
-        first_name=user_create.get("first_name"),
-        last_name=user_create.get("last_name"),
+        first_name=user_create["first_name"],
+        last_name=user_create["last_name"],
         phone=user_create.get("phone"),
         role=user_create.get("role", UserRole.USER)
     )

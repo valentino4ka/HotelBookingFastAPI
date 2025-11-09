@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
         input.min = today;
     });
 
-    // Анимация модалок при открытии
+    // Анимация модалок
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {
         modal.addEventListener('show.bs.modal', () => {
             const modalDialog = modal.querySelector('.modal-dialog');
-            modalDialog.classList.add('animate__animated', 'animate__zoomIn', 'animate__fast');
+            modalDialog.classList.add('animate__animated', 'animate__zoomIn', 'animate__fast Молниеносно');
         });
         modal.addEventListener('hide.bs.modal', () => {
             const modalDialog = modal.querySelector('.modal-dialog');
@@ -19,16 +19,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Обработка сообщений об ошибках/успехе (если бэкенд вернёт flash-сообщения)
-    // Пример: если в шаблоне есть <div id="message">{{ message }}</div>
-    const messageDiv = document.getElementById('loginMessage') || document.getElementById('registerMessage');
-    if (messageDiv && messageDiv.textContent.trim()) {
-        messageDiv.style.display = 'block';
-        setTimeout(() => {
-            messageDiv.classList.add('animate__animated', 'animate__fadeOut');
-            messageDiv.addEventListener('animationend', () => {
-                messageDiv.style.display = 'none';
-            });
-        }, 3000);
-    }
+    // Убрали старую обработку flash-сообщений — теперь всё в auth.js
 });

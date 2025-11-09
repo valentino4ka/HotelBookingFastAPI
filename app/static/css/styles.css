@@ -64,70 +64,6 @@ body, html {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* === МОДАЛКИ === */
-.modal-content {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-    border: none;
-}
-
-.modal-header {
-    background: white;
-    color: #1a1a1a;
-    border-bottom: 1px solid #f0f0f0;
-    padding: 1.5rem 2rem 1rem;
-}
-
-.modal-title {
-    font-weight: 600;
-    font-size: 1.4rem;
-}
-
-.modal-header .btn-close {
-    position: absolute;
-    right: 1.5rem;
-    top: 1.5rem;
-    opacity: 0.6;
-    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236b7280'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 011.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
-}
-
-.modal-header .btn-close:hover {
-    opacity: 1;
-    transform: rotate(90deg);
-}
-
-/* === ФОРМЫ === */
-.form-floating > .form-control {
-    height: 56px;
-    padding-left: 50px;
-    border: 1.5px solid #e1e5e9;
-    border-radius: 12px;
-    background: #fafbfc;
-}
-
-.form-floating > .form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
-    background: white;
-}
-
-.form-floating > label {
-    padding-left: 50px;
-    color: #6c757d;
-    font-weight: 500;
-}
-
-.form-floating > .icon {
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #6c757d;
-    font-size: 1.1rem;
-    z-index: 3;
-}
-
 /* === СООБЩЕНИЯ === */
 #registerMessage, #loginMessage {
     padding: 0.75rem 1rem;
@@ -142,31 +78,27 @@ body, html {
     display: block;
 }
 
-.text-success { background: #f0f9f4; color: #0d6832; border: 1px solid #b8e6cd; }
-.text-danger { background: #fef0f0; color: #c53030; border: 1px solid #fed7d7; }
+.text-success { 
+    background: #f0fff4; 
+    color: #22543d; 
+    border: 1px solid #9ae6b4; 
+}
+
+.text-danger { 
+    background: #fff5f5; 
+    color: #742a2a; 
+    border: 1px solid #fc8181; 
+}
 
 /* === АНИМАЦИИ === */
-@keyframes slideIn {
-    from { transform: translateY(-10px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* Добавь в конец styles.css */
-
-/* Прыжок для кнопки поиска */
-.search-form button:hover {
-    animation: bounce 0.6s;
-}
-
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
     40% { transform: translateY(-20px); }
     60% { transform: translateY(-10px); }
 }
 
-/* Всплытие для модалок (резерв, если JS не сработает) */
-.modal.show .modal-dialog {
-    animation: zoomIn 0.6s ease-out;
+.search-form button:hover {
+    animation: bounce 0.6s;
 }
 
 @keyframes zoomIn {
@@ -174,3 +106,202 @@ body, html {
     to { transform: scale(1); opacity: 1; }
 }
 
+.modal.show .modal-dialog {
+    animation: zoomIn 0.6s ease-out;
+}
+
+/* === НОВЫЕ МОДАЛКИ: ПЛОСКИЙ МИНИМАЛИЗМ (БЕЗ СВЕЧЕНИЯ) === */
+.modal-neum {
+    --bg: #ffffff;
+    --text: #2d3748;
+    --border: #e2e8f0;
+    --focus: #4299e1;
+    --btn-start: #007bff;
+    --btn-end: #00c6ff;
+}
+
+.modal-neum .modal-content {
+    background: var(--bg);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.modal-neum .modal-header {
+    position: relative; /* ← КРИТИЧНО: для absolute-кнопки */
+    background: transparent;
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.modal-neum .modal-title {
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--text);
+    margin: 0;
+}
+
+.modal-neum .modal-header i {
+    font-size: 1.6rem;
+    color: var(--focus);
+}
+
+/* === КНОПКА ЗАКРЫТИЯ: В ПРАВОМ ВЕРХНЕМ УГЛУ (ИСПРАВЛЕНО) === */
+.modal-neum .btn-close {
+    position: absolute !important;
+    top: 1.5rem;
+    right: 2rem;
+    z-index: 10;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    margin: 0;
+    opacity: 0.75;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.modal-neum .btn-close::before,
+.modal-neum .btn-close::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #000;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.modal-neum .btn-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.modal-neum .btn-close:hover {
+    opacity: 1;
+}
+
+.modal-neum .btn-close:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* === ИНПУТЫ: ТОЛЬКО UNDERLINE === */
+.modal-neum .input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.modal-neum .input-group input {
+    width: 100%;
+    padding: 1rem 0 0.5rem;
+    font-size: 1rem;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid #cbd5e0;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.modal-neum .input-group input:focus {
+    border-color: var(--focus);
+}
+
+.modal-neum .input-group label {
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    font-size: 1rem;
+    color: #718096;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.modal-neum .input-group input:focus ~ label,
+.modal-neum .input-group input:not(:placeholder-shown) ~ label {
+    top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--focus);
+    font-weight: 500;
+}
+
+.modal-neum .input-group .underline {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--focus);
+    transition: width 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.modal-neum .input-group input:focus ~ .underline {
+    width: 100%;
+}
+
+/* === КНОПКА: ГРАДИЕНТ БЕЗ ТЕНИ И ПОДЪЁМА === */
+.modal-neum .btn-gradient {
+    background: linear-gradient(135deg, var(--btn-start), var(--btn-end));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.85rem 2rem;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 1rem;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.modal-neum .btn-gradient:hover {
+    background: linear-gradient(135deg, #5a6fd8, #6a4190);
+}
+
+/* === СООБЩЕНИЯ === */
+.modal-neum #loginMessage,
+.modal-neum #registerMessage {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+    border: 1px solid transparent;
+}
+
+.modal-neum #loginMessage.show,
+.modal-neum #registerMessage.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.modal-neum .text-success {
+    background: #f0fff4;
+    color: #22543d;
+    border-color: #9ae6b4;
+}
+
+.modal-neum .text-danger {
+    background: #fff5f5;
+    color: #742a2a;
+    border-color: #fc8181;
+}
+
+/* Анимация модалки — лёгкая, без теней */
+.modal-neum.show .modal-dialog {
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}

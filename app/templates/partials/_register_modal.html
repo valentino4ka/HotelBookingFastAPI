@@ -1,29 +1,40 @@
 {# app/templates/partials/_register_modal.html #}
-<div class="modal fade" id="registerModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered animate__animated animate__zoomIn">
+<div class="modal fade modal-neum" id="registerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
+                <i class="fas fa-user-plus"></i>
                 <h5 class="modal-title">Создать аккаунт</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="registerForm" action="/auth/register" method="post">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="full_name" required>
-                        <label>ФИО</label>
-                        <i class="fas fa-user icon"></i>
+            <div class="modal-body p-4">
+                <form id="registerForm">
+                    <div class="input-group">
+                        <input type="text" name="first_name" placeholder=" ">
+                        <label>Имя</label>
+                        <div class="underline"></div>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" name="email" required>
+                    <div class="input-group">
+                        <input type="text" name="last_name" placeholder=" ">
+                        <label>Фамилия</label>
+                        <div class="underline"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" name="email" placeholder=" " required>
                         <label>Электронная почта</label>
-                        <i class="fas fa-envelope icon"></i>
+                        <div class="underline"></div>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control" name="password" required>
+                    <div class="input-group">
+                        <input type="tel" name="phone" placeholder=" ">
+                        <label>Телефон</label>
+                        <div class="underline"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder=" " required>
                         <label>Пароль</label>
-                        <i class="fas fa-lock icon"></i>
+                        <div class="underline"></div>
                     </div>
-                    <button type="submit" class="btn btn-gradient w-100">Зарегистрироваться</button>
+                    <button type="submit" class="btn-gradient">Зарегистрироваться</button>
                     <div id="registerMessage"></div>
                 </form>
             </div>

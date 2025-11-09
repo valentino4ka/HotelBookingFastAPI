@@ -1,24 +1,25 @@
 {# app/templates/partials/_login_modal.html #}
-<div class="modal fade" id="loginModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered animate__animated animate__zoomIn">
+<div class="modal fade modal-neum" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
+                <i class="fas fa-sign-in-alt"></i>
                 <h5 class="modal-title">Вход в аккаунт</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="loginForm" action="/auth/login" method="post">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" name="email" required>
+            <div class="modal-body p-4">
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="email" name="email" placeholder=" " required>
                         <label>Электронная почта</label>
-                        <i class="fas fa-envelope icon"></i>
+                        <div class="underline"></div>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control" name="password" required>
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder=" " required>
                         <label>Пароль</label>
-                        <i class="fas fa-lock icon"></i>
+                        <div class="underline"></div>
                     </div>
-                    <button type="submit" class="btn btn-gradient w-100">Войти</button>
+                    <button type="submit" class="btn-gradient">Войти</button>
                     <div id="loginMessage"></div>
                 </form>
             </div>
