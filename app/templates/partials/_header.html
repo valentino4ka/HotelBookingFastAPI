@@ -1,0 +1,25 @@
+{# app/templates/partials/_header.html #}
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">БронированиеОтелейДнр.ру</a>
+        <div class="ms-auto d-flex gap-3" id="authButtons">
+            {% if current_user %}
+                <a href="/profile" class="btn btn-outline-light btn-profile">
+                    <i class="fas fa-user"></i> {{ current_user.email }}
+                </a>
+                <form action="/auth/logout" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-danger btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </button>
+                </form>
+            {% else %}
+                <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    <i class="fas fa-user-plus"></i> Регистрация
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</nav>

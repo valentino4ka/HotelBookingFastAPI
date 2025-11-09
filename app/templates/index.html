@@ -1,0 +1,30 @@
+{# app/templates/index.html #}
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero position-relative">
+    <div class="overlay"></div>
+    <div class="container position-relative z-index-1 text-center text-white">
+        <!-- Заголовок: всплытие сверху -->
+        <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInDown" style="animation-delay: 0.2s;">
+            Добро пожаловать в HotelBooking
+        </h1>
+        
+        <!-- Подзаголовок: всплытие снизу -->
+        <p class="lead mb-5 animate__animated animate__fadeInUp" style="animation-delay: 0.5s;">
+            Бронируйте лучшие отели по всему миру. Просто, стильно, надёжно.
+        </p>
+
+        <!-- Форма: увеличение + поэлементное всплытие -->
+        <form class="search-form d-flex flex-column flex-md-row justify-content-center gap-3 mb-5 animate__animated animate__zoomIn" style="animation-delay: 0.8s;" 
+              action="/hotels" method="get">
+            <input type="text" class="form-control form-control-lg animate__animated animate__fadeInUp" style="animation-delay: 1s;" name="city" placeholder="Куда едете?" required>
+            <input type="date" class="form-control form-control-lg animate__animated animate__fadeInUp" style="animation-delay: 1.1s;" name="check_in_date" required>
+            <input type="date" class="form-control form-control-lg animate__animated animate__fadeInUp" style="animation-delay: 1.2s;" name="check_out_date" required>
+            <button type="submit" class="btn btn-primary btn-lg px-5 animate__animated animate__bounceIn" style="animation-delay: 1.4s;">
+                Найти
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock %}
