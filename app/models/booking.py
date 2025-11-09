@@ -66,6 +66,10 @@ class Booking(Base, TimestampMixin):
         index=True
     )
     
+    payment_id = Column(String(255), nullable=True, index=True)
+    idempotency_key = Column(String(255), nullable=True, unique=True)
+    confirmation_url = Column(String(500), nullable=True)
+
     # Дополнительная информация
     special_requests = Column(Text, nullable=True)
     cancellation_reason = Column(Text, nullable=True)
