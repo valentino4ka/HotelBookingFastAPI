@@ -1,9 +1,19 @@
-from sqlalchemy import Column, Integer, String, Text, Float, Boolean, ForeignKey, JSON
+from sqlalchemy import Column, Integer, String, Table, Text, Float, Boolean, ForeignKey, JSON
 from sqlalchemy.orm import relationship
 from app.database import Base
 from app.models.base import TimestampMixin, SoftDeleteMixin
 from app.models.amenity import hotel_amenities
+from app.models.location import Location
 
+hotel_nearby_locations = Table(
+    'hotel_nearby_locations',
+    Base.metadata,
+    Column('hotel_id', Integer, ForeignKey('hotels.id', ondelete='CASCADE'), primary_key=True),
+    Column('location_id', Integer, ForeignKey('locations.id', ondelete='CASCADE'), primary_key=True),
+    Column('distance_meters', Integer, nullable=False),  # расстояние в метрах
+    Column('walking_minutes', Integer, nullable=True),
+    Column('transport_minutes', Integer, nullable=True)
+)
 
 class Hotel(Base, TimestampMixin, SoftDeleteMixin):
     """Модель отеля"""
@@ -76,5 +86,13 @@ class Hotel(Base, TimestampMixin, SoftDeleteMixin):
         lazy="select"
     )
 
+    nearby_locations = relationship(
+        "Location",
+        secondary=hotel_nearby_locations,
+        back_populates="nearby_hotels",
+        lazy="select"
+    )
+
     def __repr__(self):
         return f"<Hotel(id={self.id}, name={self.name}, city={self.city})>"
+    

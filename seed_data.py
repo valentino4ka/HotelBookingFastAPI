@@ -5,7 +5,7 @@
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app.models import User, UserRole, Amenity, Hotel, Room, RoomType, BedType
-from app.core.utils import hash_password
+from app.crud.user import hash_password
 
 
 def seed_users(db: Session):

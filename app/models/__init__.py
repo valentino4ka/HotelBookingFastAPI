@@ -1,32 +1,21 @@
-"""
-Модели базы данных для системы бронирования отелей
-"""
+# app/models/__init__.py
+# Этот файл теперь нужен ТОЛЬКО для работы приложения (не для Alembic!)
 
 from app.database import Base
-from app.models.user import User, UserRole
-from app.models.amenity import Amenity, hotel_amenities, room_amenities
-from app.models.hotel import Hotel
-from app.models.room import Room, RoomType, BedType
-from app.models.booking import Booking, BookingStatus, PaymentStatus
-from app.models.review import Review, ReviewStatus
-from app.models.audit_log import AuditLog, ActionType
 
-__all__ = [
-    "Base",
-    "User",
-    "UserRole",
-    "Amenity",
-    "hotel_amenities",
-    "room_amenities",
-    "Hotel",
-    "Room",
-    "RoomType",
-    "BedType",
-    "Booking",
-    "BookingStatus",
-    "PaymentStatus",
-    "Review",
-    "ReviewStatus",
-    "AuditLog",
-    "ActionType",
-]
+# Импортируем ВСЕ модели явно — это заставит SQLAlchemy их "увидеть"
+from app.models import user
+from app.models import hotel
+from app.models import room
+from app.models import booking
+from app.models import review
+from app.models import amenity
+from app.models import audit_log
+from app.models import location_category
+from app.models import location
+from app.models import location_photo
+from app.models import favorite
+from app.models import event
+from app.models import notification
+
+# Ничего больше не экспортируем — главное, что они импортированы

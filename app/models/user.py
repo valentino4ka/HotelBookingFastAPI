@@ -72,6 +72,10 @@ class User(Base, TimestampMixin, SoftDeleteMixin):
         back_populates="user",
         lazy="select"
     )
+    
+    favorites = relationship("Favorite", back_populates="user", cascade="all, delete-orphan", lazy="select")
+
+    notifications = relationship("Notification", back_populates="user", cascade="all, delete-orphan", lazy="select")
 
     def __repr__(self):
         return f"<User(id={self.id}, email={self.email}, role={self.role})>"
