@@ -50,7 +50,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker-compose build  # Или docker build -t hotelbooking-app .
+          docker compose build  # Или docker build -t hotelbooking-app .
 
       - name: Test Docker compose
         run: |
