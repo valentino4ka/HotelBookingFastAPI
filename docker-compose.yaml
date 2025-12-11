@@ -13,6 +13,17 @@ services:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-
+  app:  
+      build: .
+      container_name: hotel_booking_app
+      restart: unless-stopped
+      ports:
+        - "8000:8000"  
+      environment:
+        - DATABASE_URL=postgresql://postgres:password@db:5432/hotel_booking 
+      depends_on:
+        - db
+      volumes:
+        - .:/app  
 volumes:
   postgres-data:

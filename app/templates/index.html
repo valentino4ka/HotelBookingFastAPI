@@ -16,15 +16,36 @@
         </p>
 
         <!-- Форма: увеличение + поэлементное всплытие -->
-        <form class="search-form d-flex flex-column flex-md-row justify-content-center gap-3 mb-5 animate__animated animate__zoomIn" style="animation-delay: 0.8s;" 
-              action="/hotels" method="get">
-            <input type="text" class="form-control form-control-lg animate__animated animate__fadeInUp" style="animation-delay: 1s;" name="city" placeholder="Куда едете?" required>
-            <input type="date" class="form-control form-control-lg animate__animated animate__fadeInUp" style="animation-delay: 1.1s;" name="check_in_date" required>
-            <input type="date" class="form-control form-control-lg animate__animated animate__fadeInUp" style="animation-delay: 1.2s;" name="check_out_date" required>
-            <button type="submit" class="btn btn-primary btn-lg px-5 animate__animated animate__bounceIn" style="animation-delay: 1.4s;">
-                Найти
-            </button>
-        </form>
+<!-- Форма: увеличение + поэлементное всплытие -->
+<form class="search-form d-flex flex-column flex-md-row justify-content-center gap-3 mb-5 animate__animated animate__zoomIn" style="animation-delay: 0.8s;" 
+      action="/hotels" method="get">
+    
+    <!-- Поле "Куда едете?" -->
+    <div class="input-wrapper">
+        <label for="city">Город</label>
+        <input type="text" class="form-control form-control-lg animate__animated animate__fadeInUp" style="animation-delay: 1s;" name="city" id="city" placeholder="Куда едете?" required>
+    </div>
+    
+    <!-- Заезд -->
+    <div class="input-wrapper">
+        <label for="check_in_date">Заезд</label>
+        <input type="date" class="form-control form-control-lg animate__animated animate__fadeInUp" style="animation-delay: 1.1s;" name="check_in_date" id="check_in_date" required>
+    </div>
+    
+    <!-- Выезд -->
+    <div class="input-wrapper">
+        <label for="check_out_date">Выезд</label>
+        <input type="date" class="form-control form-control-lg animate__animated animate__fadeInUp" style="animation-delay: 1.2s;" name="check_out_date" id="check_out_date" required>
+    </div>
+    
+    <!-- Кнопка -->
+    <div class="input-wrapper btn-wrapper">
+        <label for="check_in_date" class="btnl">Заезд</label>
+        <button type="submit" class="btn btn-primary btn-lg px-5 w-100 animate__animated" style="animation-delay: 1.4s;">
+            Найти
+        </button>
+    </div>
+</form>
     </div>
 </section>
 {% endblock %}

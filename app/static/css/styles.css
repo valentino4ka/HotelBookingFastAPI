@@ -97,9 +97,7 @@ body, html {
     60% { transform: translateY(-10px); }
 }
 
-.search-form button:hover {
-    animation: bounce 0.6s;
-}
+
 
 @keyframes zoomIn {
     from { transform: scale(0.8); opacity: 0; }
@@ -305,3 +303,15 @@ body, html {
     0% { transform: scale(0.95); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
+
+/* Подписи над полями дат в главной поисковой форме */
+.search-form .input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+
+label.btnl {
+    color: rgb(123, 123, 123, 0);
+}
+
