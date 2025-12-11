@@ -54,7 +54,7 @@ jobs:
 
       - name: Test Docker compose
         run: |
-          docker-compose up -d
+          docker compose up -d
           sleep 10  # Подождать запуска
           curl -f http://localhost:8000/health || exit 1  # Проверка health
-          docker-compose down
+          docker compose down
